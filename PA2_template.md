@@ -1,11 +1,11 @@
-#Storm Consequence Analyis within US, 1950-2011
+# Storm Consequence Analysis within US, 1950-2011
 
 
-##Synopsis
+## Synopsis
 In this report we aim to describe the impact of storm events in the United States between the years 1950 and 2011. The goal has been to identify key storm event types and their impact in terms of casualities/injuries and economic damage. To investigate this we obtained data from the U.S. National Oceanic and Atmospheric Administration's (NOAA) storm database which tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage. We found that tornados causes more causalties and injuries to human beings than any other kind of storm type. Tornados are also a significant contributor in overall economic damage. The main economic damage stems from floods. 
 
 
-##Data Processing
+## Data Processing
 Loading libraries + raw data + removing REMARKS for less data crunching. 
 
 ```r
@@ -14,11 +14,10 @@ library("data.table")
 library("ggplot2")
 library("reshape2")
 
-# download.file('https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2',
-# 'repdata-data-StormData.csv.bz2')
-# bunzip2('repdata-data-StormData.csv.bz2') stormTemp <-
-# read.csv('repdata-data-StormData.csv')
-stormTemp <- read.csv("test.csv")
+# uncomment if bz2 is already unpacked
+# bunzip2('repdata-data-StormData.csv.bz2')
+
+stormTemp <- read.csv("repdata-data-StormData.csv")
 stormTemp$REMARKS <- ""
 stormData <- as.data.table(stormTemp)
 ```
@@ -56,7 +55,7 @@ knitrbug <- stormData[, `:=`(TOTDMG, PROPDMG + CROPDMG)]
 ```
 
 
-##Results
+## Results
 *Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?*
 
 Defining most harmful as number of deaths as the primary indicator and injuries as the secondary
@@ -89,10 +88,6 @@ b <- stormData[, j = list(TOTDMG = sum(TOTDMG)), by = EVTYPE][order(-TOTDMG),
 qplot(EVTYPE, TOTDMG/1e+06, data = b, geom = "bar", fill = 1, ylab = "Cost of damage, Millions USD", 
     xlab = "") + ggtitle("Top 10 costs incurred by weather, grouped by event") + 
     theme(axis.text.x = element_text(angle = 90))
-```
-
-```
-## Warning: Removed 1 rows containing missing values (position_stack).
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
