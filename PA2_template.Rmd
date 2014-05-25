@@ -17,8 +17,7 @@ library("reshape2")
 #    "repdata-data-StormData.csv.bz2")
 #bunzip2("repdata-data-StormData.csv.bz2")
 #
-#stormTemp <- read.csv("repdata-data-StormData.csv")
-stormTemp <- read.csv("test.csv")
+stormTemp <- read.csv("repdata-data-StormData.csv")
 stormTemp$REMARKS <- ""
 stormData <- as.data.table(stormTemp)
 
@@ -58,7 +57,7 @@ knitrbug <- stormData[, TOTDMG:=PROPDMG+CROPDMG]
 *Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?*
 
 Defining most harmful as number of deaths as the primary indicator and injuries as the secondary
-```{r}
+```{r warning=FALSE, message=FALSE}
 a<- stormData[,
           j = list(
                "fatalities" = sum(FATALITIES),
@@ -75,7 +74,7 @@ Tornados are overall the main cause of both fatalities and injuries.
 
 
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 b <- stormData[,
           j = list("TOTDMG" = sum(TOTDMG)),
           by = EVTYPE][order(-TOTDMG),][1:10,]

@@ -70,15 +70,6 @@ ggplot(a, aes(EVTYPE, value, fill = variable)) + geom_bar(position = "dodge") +
     ggtitle("Top 10 Fatalities/Injures and their cause")
 ```
 
-```
-## Mapping a variable to y and also using stat="bin".
-##   With stat="bin", it will attempt to set the y value to the count of cases in each group.
-##   This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
-##   If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
-##   If you want y to represent values in the data, use stat="identity".
-##   See ?geom_bar for examples. (Deprecated; last used in version 0.9.2)
-```
-
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 ```r
@@ -98,15 +89,6 @@ b <- stormData[, j = list(TOTDMG = sum(TOTDMG)), by = EVTYPE][order(-TOTDMG),
 qplot(EVTYPE, TOTDMG/1e+06, data = b, geom = "bar", fill = 1, ylab = "Cost of damage, Millions USD", 
     xlab = "") + ggtitle("Top 10 costs incurred by weather, grouped by event") + 
     theme(axis.text.x = element_text(angle = 90))
-```
-
-```
-## Mapping a variable to y and also using stat="bin".
-##   With stat="bin", it will attempt to set the y value to the count of cases in each group.
-##   This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
-##   If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
-##   If you want y to represent values in the data, use stat="identity".
-##   See ?geom_bar for examples. (Deprecated; last used in version 0.9.2)
 ```
 
 ```
